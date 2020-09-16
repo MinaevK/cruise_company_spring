@@ -37,4 +37,16 @@ public class BookingService {
         }
         return cabins;
     }
+    public List<UserApplication> findAllApplications(){
+        List<UserApplication> applications = bookingRepository.findAll();
+        return applications;
+    }
+    public UserApplication findById(Long id){
+        Optional<UserApplication> optionalUserApplication = bookingRepository.findById(id);
+        return optionalUserApplication.get();
+    }
+    public List<UserApplication> findByUser(Long userId){
+        List<UserApplication> applications = bookingRepository.findAllByUser_Id(userId);
+        return applications;
+    }
 }

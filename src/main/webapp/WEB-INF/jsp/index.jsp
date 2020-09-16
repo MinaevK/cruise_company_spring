@@ -20,9 +20,9 @@
         <h4><a href="/logout">Logout</a></h4>
     </sec:authorize>
     <h4><a href="/admin">Users</a></h4>
-    <h4><a href="/applications">All Applications</a></h4>
+    <h4><a href="/all-applications">All Applications</a></h4>
     <h4><a href="/booking">Booking</a></h4>
-    <h4><a href="/userBills">My Applications</a></h4>
+    <h4><a href="/user-applications">My Applications</a></h4>
 </div>
 </body>
 </html>

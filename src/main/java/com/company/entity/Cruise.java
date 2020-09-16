@@ -3,6 +3,7 @@ package com.company.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.List;
 
 @Getter
@@ -18,6 +19,8 @@ public class Cruise {
     private Long id;
     private String name;
     private float cruisePrice;
+    private Calendar departureDate;
+    private Calendar arrivalDate;
     @Column
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = Port.class)
