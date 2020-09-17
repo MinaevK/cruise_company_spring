@@ -19,8 +19,8 @@ public class Cruise {
     private Long id;
     private String name;
     private float cruisePrice;
-    private Calendar departureDate;
-    private Calendar arrivalDate;
+    private String departureDate;
+    private String arrivalDate;
     @Column
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = Port.class)

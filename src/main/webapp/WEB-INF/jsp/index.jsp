@@ -13,16 +13,27 @@
 <div>
     <h3>Hello, ${pageContext.request.userPrincipal.name}</h3>
     <sec:authorize access="!isAuthenticated()">
-        <h4><a href="/login">Login</a></h4>
-        <h4><a href="/registration">Registrate</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/login">Login</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/registration">Registrate</a></h4>
     </sec:authorize>
     <sec:authorize access="isAuthenticated()">
-        <h4><a href="/logout">Logout</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/logout">Logout</a></h4>
     </sec:authorize>
-    <h4><a href="/admin">Users</a></h4>
-    <h4><a href="/all-applications">All Applications</a></h4>
-    <h4><a href="/booking">Booking</a></h4>
-    <h4><a href="/user-applications">My Applications</a></h4>
+    <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+        <h4><a href="${pageContext.request.contextPath}/admin">Users</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/all-applications">All Applications</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/cruises">Cruises editing</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/ship">Ships editing</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/cabins">Cabins editing</a></h4>
+    </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+        <h4><a href="${pageContext.request.contextPath}/booking">Booking</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/user-applications">My Applications</a></h4>
+    </sec:authorize>
+
+
+
+
 </div>
 </body>
 </html>

@@ -22,4 +22,5 @@ public class Cabin {
     private CabinClass cabinClass;
     @ManyToOne(fetch = FetchType.EAGER)
     private Ship ship;
+    private boolean isOccupied;
 }

@@ -12,45 +12,29 @@
 
 <body>
 <div>
-    <h3>Cabin number ${cabin.number}</h3>
-    <table>
-        <tr>
-            <td>Ship </td>
-            <td>Class </td>
-            <td>Price </td>
-        </tr>
-            <tr>
-                <td>${cabin.ship.name}</td>
-                <td>${cabin.cabinClass}</td>
-                <td>${cabin.price}</td>
-            </tr>
-    </table>
+    <h3>Cabin ${cabin.number}, ${cabin.ship.name}</h3>
 </div>
 
 <div>
     <form:form method="post" modelAttribute="cabinForm">
-    <table border="0" cellpadding="5">
-        <tr>
-            <td>Class </td>
-            <td>
-                <select id="cabinClasses" name="cabinClass">
-                    <option value="${cabin.cabinClass}">${cabin.cabinClass}</option>
-                    <c:forEach items="${cabinClasses}" var="cabinClass">
-                        <option value="${cabinClass}">${cabinClass}</option>
-                    </c:forEach>
-                </select>
-            </td>
-        </tr>
+        <p>Class
+            <select id="cabinClasses" name="cabinClass">
+                <c:forEach items="${cabinClasses}" var="cabinClass">
+                    <c:choose>
+                        <c:when test="${cabinClass == cabin.cabinClass}">
+                            <option selected value="${cabinClass}">${cabinClass}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${cabinClass}">${cabinClass}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </select>
+        </p>
+        <p>Price: <input type="text" value="${cabin.price}" path="price"/>
+        </p>
 
-        <tr>
-            <td>Price </td>
-            <td><input type="text" placeholder="${cabin.price}" path="price"/></td>
-        </tr>
-
-        <tr>
-            <td colspan="2"><button type="submit">Edit</button></td>
-        </tr>
-    </table>
+        <button type="submit">Edit</button><br>
     <a href="/">Main</a>
 </div>
 

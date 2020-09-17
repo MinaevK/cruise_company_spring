@@ -15,11 +15,15 @@
         <thead>
         <th>Cruise</th>
         <th>Price</th>
+        <th>Departure Date</th>
+        <th>Arrival Date</th>
         </thead>
         <c:forEach items="${cruises}" var="cruise">
             <tr>
                 <td>${cruise.name}</td>
                 <td>${cruise.cruisePrice}</td>
+                <td>${cruise.departureDate}</td>
+                <td>${cruise.arrivalDate}</td>
                 <td>
                     <a href="booking-cabin/${cruise.id}"> Select </a>
                 </td>

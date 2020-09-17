@@ -41,7 +41,6 @@
             <tr>
                 <td>Ship </td>
                 <td><select id="ships" name="shipId">
-                        <option value="top">Select cruise</option>
                         <c:forEach items="${ships}" var="ship">
                             <option value="${ship.id}">${ship.name}</option>
                         </c:forEach>
@@ -52,21 +51,19 @@
                 <td>Class </td>
                 <td>
                     <select id="cabinClasses" name="cabinClass">
-                        <option value="top">Select class</option>
                         <c:forEach items="${cabinClasses}" var="cabinClass">
                             <option value="${cabinClass}">${cabinClass}</option>
                         </c:forEach>
                     </select>
                 </td>
             </tr>
-
             <tr>
                 <td>Price </td>
                 <td><form:input path="price" /></td>
             </tr>
 
             <tr>
-                <td colspan="2"><button type="submit">Save</button></td>
+                <td><button type="submit">Save</button></td>
             </tr>
         </table>
     <a href="/">Main</a>

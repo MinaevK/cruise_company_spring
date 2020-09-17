@@ -43,7 +43,8 @@ public class UserService implements UserDetailsService {
     }
     @Transactional
     public List<User> allUsers() {
-        return userRepository.findAll();
+        Role role = roleRepository.findByName("ROLE_USER");
+        return userRepository.findUsersByRoles(role);
     }
     @Transactional
     public boolean saveUser(User user) {

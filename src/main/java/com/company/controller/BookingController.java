@@ -4,7 +4,6 @@ import com.company.entity.Cabin;
 import com.company.entity.Cruise;
 import com.company.entity.User;
 import com.company.entity.UserApplication;
-import com.company.repository.ShipRepository;
 import com.company.service.BookingService;
 import com.company.service.CabinService;
 import com.company.service.CruiseService;
@@ -13,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller

@@ -10,8 +10,8 @@
 </head>
 
 <body>
-    <h1>${cruise.name}</h1>
-    <h2>${cruise.ship.name}</h2>
+    <h2>${cruise.name} (${cruise.departureDate} - ${cruise.arrivalDate})</h2>
+    <h3>${cruise.ship.name}</h3>
     <table>
         <thead>
         <th>Number</th>
