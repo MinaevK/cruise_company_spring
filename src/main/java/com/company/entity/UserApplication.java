@@ -3,6 +3,7 @@ package com.company.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -25,5 +26,6 @@ public class UserApplication {
     private Ship ship;
     private float price;
     private boolean paid;
+    private String applicationDate;
 
 }

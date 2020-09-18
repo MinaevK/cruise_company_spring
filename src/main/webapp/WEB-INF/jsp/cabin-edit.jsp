@@ -17,6 +17,7 @@
 
 <div>
     <form:form method="post" modelAttribute="cabinForm">
+        <p>${cabin.ship.id}</p>
         <p>Class
             <select id="cabinClasses" name="cabinClass">
                 <c:forEach items="${cabinClasses}" var="cabinClass">
@@ -37,7 +38,7 @@
         <button type="submit">Edit</button><br>
     <a href="/">Main</a>
 </div>
-
+<input type="hidden" name="shipId" value="${cabin.ship.id}"/>
 </form:form>
 </body>
 </html>

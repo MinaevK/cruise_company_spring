@@ -31,8 +31,7 @@ public class CabinController {
     }
 
     @PostMapping("/cabins")
-    public String  addCabin(@ModelAttribute("cabinForm") Cabin cabin, @RequestParam(required = true, defaultValue = "" ) Long shipId,
-                                                                    @RequestParam(required = true, defaultValue = "" ) CabinClass cabinClass) {
+    public String  addCabin(@ModelAttribute("cabinForm") Cabin cabin, @RequestParam(required = true, defaultValue = "" ) Long shipId) {
             cabinService.saveCabin(cabin, shipId);
         return "redirect:/cabins";
     }
@@ -48,7 +47,6 @@ public class CabinController {
     }
     @PostMapping("/cabin-edit/{id}")
     public String  editCabin(@ModelAttribute("cabinForm") Cabin cabin, @RequestParam(required = true, defaultValue = "" ) Long shipId,
-                                                                    @RequestParam(required = true, defaultValue = "" ) CabinClass cabinClass,
                                                                     @PathVariable("id") Long id) {
         cabin.setId(id);
         cabinService.saveCabin(cabin, shipId);

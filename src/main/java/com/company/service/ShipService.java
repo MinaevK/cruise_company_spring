@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShipService {
@@ -15,5 +16,9 @@ public class ShipService {
     public boolean saveShip(Ship ship){
         shipRepository.save(ship);
         return true;
+    }
+    public Ship shipById(Long Id){
+        Optional<Ship> optionalShip = shipRepository.findById(Id);
+        return optionalShip.get();
     }
 }

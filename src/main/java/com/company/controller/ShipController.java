@@ -19,16 +19,32 @@ public class ShipController {
     @Autowired
     ShipService shipService;
 
-    @GetMapping("/ship")
+    @GetMapping("/ships")
     public String ship(Model model) {
+        model.addAttribute("ships", shipService.allShips());
         model.addAttribute("shipForm", new Ship());
-        return "ship";
+        return "ships";
     }
 
 
-    @PostMapping("/ship")
+    @PostMapping("/ships")
     public String  addShip(@ModelAttribute("shipForm") Ship ship) {
     shipService.saveShip(ship);
-        return "redirect:/ship";
+        return "redirect:/ships";
+    }
+
+    @GetMapping("/ship-edit/{id}")
+    public String shipEdit(@PathVariable("id") Long id, Model model) {
+        Ship ship = shipService.shipById(id);
+        model.addAttribute("ship", ship);
+        model.addAttribute("shipForm", new Ship());
+        return "/ship-edit";
+    }
+    @PostMapping("/ship-edit/{id}")
+    public String  saveEditedShip(@ModelAttribute("shipForm") Ship ship,
+                             @PathVariable("id") Long id) {
+        ship.setId(id);
+        shipService.saveShip(ship);
+        return "redirect:/ships";
     }
 }

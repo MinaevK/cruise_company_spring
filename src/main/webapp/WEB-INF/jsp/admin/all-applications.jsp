@@ -14,12 +14,14 @@
 <div>
     <table>
         <thead>
-        <th>Cruise Name</th>
-        <th>Departure Date</th>
-        <th>Arrival Date</th>
-        <th>User name</th>
-        <th>Ship</th>
-        <th>Room</th>
+            <th>Cruise Name</th>
+            <th>Departure Date</th>
+            <th>Arrival Date</th>
+            <th>User name</th>
+            <th>Ship</th>
+            <th>Room</th>
+            <th>Application date</th>
+            <th>Confirm</th>
         </thead>
         <c:forEach items="${allApplications}" var="appl">
             <tr>
@@ -29,6 +31,7 @@
                 <td>${appl.user.username}</td>
                 <td>${appl.ship.name}</td>
                 <td>${appl.cabin.number}</td>
+                <td>${appl.applicationDate}</td>
                 <td>
                     <c:choose>
                         <c:when test ="${appl.paid == false}">
@@ -45,7 +48,7 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="/">Main</a>
+    <a href="${pageContext.request.contextPath}/">Main</a>
 </div>
 <%--<div>
     <table>

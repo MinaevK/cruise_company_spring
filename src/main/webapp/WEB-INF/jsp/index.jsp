@@ -20,10 +20,10 @@
         <h4><a href="${pageContext.request.contextPath}/logout">Logout</a></h4>
     </sec:authorize>
     <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-        <h4><a href="${pageContext.request.contextPath}/admin">Users</a></h4>
-        <h4><a href="${pageContext.request.contextPath}/all-applications">All Applications</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/admin/admin">Users</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/admin/all-applications">All Applications</a></h4>
         <h4><a href="${pageContext.request.contextPath}/cruises">Cruises editing</a></h4>
-        <h4><a href="${pageContext.request.contextPath}/ship">Ships editing</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/ships">Ships editing</a></h4>
         <h4><a href="${pageContext.request.contextPath}/cabins">Cabins editing</a></h4>
     </sec:authorize>
     <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">

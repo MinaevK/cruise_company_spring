@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -47,6 +48,8 @@ public class BookingController {
         application.setPrice(cruisePrice + cabinPrice);
         application.setUser((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         application.setPaid(false);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        application.setApplicationDate(java.time.LocalDateTime.now().format(formatter));
         bookingService.saveApplication(application);
         return "redirect:/booking-cabin/{id}";
     }
@@ -55,9 +58,7 @@ public class BookingController {
     public String bookingCabin (@PathVariable("id") Long id, Model model) {
         Cruise currentCruise = cruiseService.findCruiseById(id);
         model.addAttribute("cruise", currentCruise);
-        List<Cabin> cabins = cabinService.cabinsOnShip(currentCruise.getShip().getId());
-        List<Cabin> deletedList = bookingService.findBookedCabins(currentCruise.getId());
-        cabins.removeAll(deletedList);
+        List<Cabin> cabins = bookingService.findBookedCabins(currentCruise.getId(), currentCruise.getShip().getId());
         model.addAttribute("cabins", cabins);
         model.addAttribute("bookingForm", new UserApplication());
         return "/booking-cabin";

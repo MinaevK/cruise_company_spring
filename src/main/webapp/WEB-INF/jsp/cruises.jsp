@@ -16,6 +16,7 @@
             <th>Name </th>
             <th>Ship </th>
             <th>Price </th>
+            <th>Departure date</th>
             <c:forEach items="${allCruises}" var="cruise">
                 <tr>
                     <td>${cruise.name}</td>

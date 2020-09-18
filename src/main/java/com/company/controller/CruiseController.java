@@ -50,5 +50,10 @@ public class CruiseController {
         cruiseService.saveCruise(cruise, shipId, portsChecked);
         return "redirect:/cruises";
     }
-
+    @GetMapping("/cruise-info/{id}")
+    public String cruiseInfo(@PathVariable("id") Long id, Model model) {
+        Cruise cruise = cruiseService.findCruiseById(id);
+        model.addAttribute("cruise", cruise);
+        return "/cruise-info";
+    }
 }

@@ -28,13 +28,15 @@ public class BookingService {
         bookingRepository.save(userApplication);
         return true;
     }
-    public List<Cabin> findBookedCabins(Long cruiseId){
+    public List<Cabin> findBookedCabins(Long cruiseId, Long shipId){
         List<UserApplication> applications = bookingRepository.findAllByCruise_Id(cruiseId);
-        List<Cabin> cabins = new ArrayList<Cabin>();
-        for (UserApplication application:applications) {
+        List<Cabin> cabins = cabinRepository.findByShip_Id(shipId);
+        ArrayList<Cabin> removeList = new ArrayList<>();
+        for (UserApplication application:applications) {    //TODO: replace with lambda
             Cabin cabin = application.getCabin();
-            cabins.add(cabin);
+            removeList.add(cabin);
         }
+        cabins.removeAll(removeList);
         return cabins;
     }
     public List<UserApplication> findAllApplications(){

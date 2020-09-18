@@ -17,18 +17,18 @@ public class ApplicationsController {
     private BookingService bookingService;
 
 
-    @GetMapping("/all-applications")
+    @GetMapping("/admin/all-applications")
     public String applications(Model model) {
         model.addAttribute("allApplications", bookingService.findAllApplications());
-        return "all-applications";
+        return "admin/all-applications";
     }
-    @PostMapping("/all-applications")
-    public String  deleteUser(@RequestParam(required = true, defaultValue = "" ) Long userId) {
+    @PostMapping("/admin/all-applications")
+    public String  sendApplication(@RequestParam(required = true, defaultValue = "" ) Long userId) {
             UserApplication userApplication = bookingService.findById(userId);
             userApplication.setPaid(true);
             bookingService.saveApplication(userApplication);
 
-        return "redirect:/all-applications";
+        return "redirect:/admin/all-applications";
     }
     @GetMapping("/user-applications")
     public String userApplications(Model model) {

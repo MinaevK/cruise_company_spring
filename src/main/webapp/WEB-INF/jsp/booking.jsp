@@ -20,7 +20,7 @@
         </thead>
         <c:forEach items="${cruises}" var="cruise">
             <tr>
-                <td>${cruise.name}</td>
+                <td><a href="cruise-info/${cruise.id}">${cruise.name}</a></td>
                 <td>${cruise.cruisePrice}</td>
                 <td>${cruise.departureDate}</td>
                 <td>${cruise.arrivalDate}</td>
@@ -31,5 +31,6 @@
             </tr>
         </c:forEach>
     </table>
+    <a href="${pageContext.request.contextPath}/">Main</a>
 </body>
 </html>

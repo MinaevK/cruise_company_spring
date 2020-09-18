@@ -17,19 +17,19 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/admin/admin")
     public String userList(Model model) {
         model.addAttribute("allUsers", userService.allUsers());
-        return "admin";
+        return "admin/admin";
     }
 
-    @PostMapping("/admin")
+    @PostMapping("admin/admin")
     public String  deleteUser(@RequestParam(required = true, defaultValue = "" ) Long userId,
                               @RequestParam(required = true, defaultValue = "" ) String action,
                               Model model) {
         if (action.equals("delete")){
             userService.deleteUser(userId);
         }
-        return "redirect:/admin";
+        return "redirect:/admin/admin";
     }
 }
