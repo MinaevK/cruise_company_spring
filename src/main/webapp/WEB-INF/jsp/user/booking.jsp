@@ -1,11 +1,11 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${cruise.name}</title>
+    <title>Booking</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -31,22 +31,27 @@
         </ul>
     </div>
 </nav>
-<h3>${cruise.name}</h3>
 <div class="container">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <th>Cruise</th>
+            <th>Price</th>
+            <th>Departure Date</th>
+            <th>Arrival Date</th>
+        </thead>
+        <c:forEach items="${cruises}" var="cruise">
+            <tr>
+                <td><a href="/cruise-info/${cruise.id}">${cruise.name}</a></td>
+                <td>${cruise.cruisePrice}</td>
+                <td>${cruise.departureDate}</td>
+                <td>${cruise.arrivalDate}</td>
+                <td>
+                    <a href="booking-cabin/${cruise.id}" class="btn btn-info" role="button"> Select </a>
+                </td>
 
-
-    <p>Departure date: ${cruise.departureDate}</p>
-    <p>Arrival date: ${cruise.arrivalDate}</p>
-    <p>Ship: ${cruise.ship.name}</p>
-    <p>Price: ${cruise.cruisePrice}</p>
-
-    <h5>Ports:</h5>
-    <ul>
-        <c:forEach items="${cruise.getPorts()}" var="port" >
-            <li>${port}</li>
+            </tr>
         </c:forEach>
-    </ul>
-
+    </table>
 </div>
 </body>
 </html>

@@ -7,8 +7,11 @@ import com.company.service.ShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -18,42 +21,65 @@ public class CruiseController {
     @Autowired
     private CruiseService cruiseService;
 
-    @GetMapping("/cruises")
-    public String userList(Model model) {
+    @GetMapping("/admin/cruises")
+    public String cruises(Model model) {
         model.addAttribute("ships", shipService.allShips());
         model.addAttribute("ports", Port.values());
-        model.addAttribute("cruiseForm", new Cruise());
         model.addAttribute("allCruises", cruiseService.allCruises());
-        return "cruises";
+        if (!model.containsAttribute("cruiseForm"))
+            model.addAttribute("cruiseForm", new Cruise());
+        return "admin/cruises";
     }
 
-    @PostMapping("/cruises")
-    public String  addCruise(@ModelAttribute("cruiseForm") Cruise cruise, @RequestParam(required = true, defaultValue = "" ) Long shipId ,
+    @PostMapping("/admin/cruises")
+    public String  addCruise(@ModelAttribute("cruiseForm") @Valid Cruise cruise, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
+                                                                    @RequestParam(required = true, defaultValue = "" ) Long shipId ,
                                                                     @RequestParam(required = true, defaultValue = "" ) List<Port> portsChecked) {
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.cruiseForm", bindingResult);
+            redirectAttributes.addFlashAttribute("cruiseForm", cruise);
+
+            return "redirect:/admin/cruises";
+        }
         cruiseService.saveCruise(cruise, shipId, portsChecked);
-        return "redirect:/cruises";
+        return "redirect:/admin/cruises";
     }
-    @GetMapping("/cruise-edit/{id}")
+    @GetMapping("/admin/cruise-edit/{id}")
     public String cabinEdit(@PathVariable("id") Long id, Model model) {
         Cruise cruise = cruiseService.findCruiseById(id);
         model.addAttribute("cruise", cruise);
         model.addAttribute("ships", shipService.allShips());
         model.addAttribute("ports", Port.values());
-        model.addAttribute("cruiseForm", new Cruise());
-        return "/cruise-edit";
+        if (!model.containsAttribute("cruiseForm"))
+            model.addAttribute("cruiseForm", new Cruise());
+        return "admin/cruise-edit";
     }
-    @PostMapping("/cruise-edit/{id}")
-    public String  editCabin(@ModelAttribute("cruiseForm") Cruise cruise, @RequestParam(required = true, defaultValue = "" ) Long shipId,
+    @PostMapping("/admin/cruise-edit/{id}")
+    public String  editCabin(@ModelAttribute("cruiseForm") @Valid Cruise cruise, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
+                             @RequestParam(required = true, defaultValue = "" ) Long shipId,
                              @RequestParam(required = true, defaultValue = "" ) List<Port> portsChecked,
                              @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.cruiseForm", bindingResult);
+            redirectAttributes.addFlashAttribute("cruiseForm", cruise);
+
+            return "redirect:/admin/cruise-edit/" + id;
+        }
         cruise.setId(id);
         cruiseService.saveCruise(cruise, shipId, portsChecked);
-        return "redirect:/cruises";
+        return "redirect:/admin/cruises";
     }
+
     @GetMapping("/cruise-info/{id}")
     public String cruiseInfo(@PathVariable("id") Long id, Model model) {
         Cruise cruise = cruiseService.findCruiseById(id);
         model.addAttribute("cruise", cruise);
         return "/cruise-info";
+    }
+
+    @GetMapping("/")
+    public String cruiseAll(Model model) {
+        model.addAttribute("allCruises", cruiseService.allCruises());
+        return "/index";
     }
 }

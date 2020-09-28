@@ -1,11 +1,11 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${cruise.name}</title>
+    <title>Cabin booking</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -31,22 +31,34 @@
         </ul>
     </div>
 </nav>
-<h3>${cruise.name}</h3>
 <div class="container">
-
-
-    <p>Departure date: ${cruise.departureDate}</p>
-    <p>Arrival date: ${cruise.arrivalDate}</p>
-    <p>Ship: ${cruise.ship.name}</p>
-    <p>Price: ${cruise.cruisePrice}</p>
-
-    <h5>Ports:</h5>
-    <ul>
-        <c:forEach items="${cruise.getPorts()}" var="port" >
-            <li>${port}</li>
+    <h2>${cruise.name} (${cruise.departureDate} - ${cruise.arrivalDate})</h2>
+    <h4>Ship: ${cruise.ship.name}</h4>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <th>Number</th>
+        <th>Class</th>
+        <th>Price</th>
+        </thead>
+        <c:forEach items="${cabins}" var="cabin">
+            <tr>
+                <td>${cabin.number}</td>
+                <td>${cabin.cabinClass}</td>
+                <td>${cabin.price}</td>
+                <td>
+                    <form:form method="post" modelAttribute="bookingForm">
+                        <input type="hidden" name="cabin" value="${cabin.id}"/>
+                        <input type="hidden" name="cruise" value="${cruise.id}"/>
+                        <input type="hidden" name="ship" value="${cruise.ship.id}"/>
+                        <input type="hidden" name="cruisePrice" value="${cruise.cruisePrice}"/>
+                        <input type="hidden" name="cabinPrice" value="${cabin.price}"/>
+                        <button type="submit" class="btn btn-success">Book</button>
+                    </form>
+                </td>
+                </form:form>
+            </tr>
         </c:forEach>
-    </ul>
-
+    </table>
 </div>
 </body>
 </html>

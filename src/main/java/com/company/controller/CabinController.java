@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -21,35 +22,52 @@ public class CabinController {
     @Autowired
     private CabinService cabinService;
 
-    @GetMapping("/cabins")
+    @GetMapping("/admin/cabins")
     public String cabinForm(Model model) {
         model.addAttribute("allCabins", cabinService.allCabins());
         model.addAttribute("ships", shipService.allShips());
         model.addAttribute("cabinClasses", CabinClass.values());
-        model.addAttribute("cabinForm", new Cabin());
-        return "cabins";
+        if (!model.containsAttribute("cabinForm"))
+            model.addAttribute("cabinForm", new Cabin());
+
+
+        return "admin/cabins";
     }
 
-    @PostMapping("/cabins")
-    public String  addCabin(@ModelAttribute("cabinForm") Cabin cabin, @RequestParam(required = true, defaultValue = "" ) Long shipId) {
-            cabinService.saveCabin(cabin, shipId);
-        return "redirect:/cabins";
+    @PostMapping("/admin/cabins")
+    public String  addCabin(@ModelAttribute("cabinForm") @Valid Cabin cabin, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
+                                                        @RequestParam(required = true, defaultValue = "" ) Long shipId) {
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.cabinForm", bindingResult);
+            redirectAttributes.addFlashAttribute("cabinForm", cabin);
+            return "redirect:/admin/cabins";
+        }
+        cabinService.saveCabin(cabin, shipId);
+        return "redirect:/admin/cabins";
     }
 
-    @GetMapping("/cabin-edit/{id}")
+    @GetMapping("/admin/cabin-edit/{id}")
     public String cabinEdit(@PathVariable("id") Long id, Model model) {
         Cabin cabin = cabinService.cabinById(id);
         model.addAttribute("cabin", cabin);
         model.addAttribute("ships", shipService.allShips());
         model.addAttribute("cabinClasses", CabinClass.values());
-        model.addAttribute("cabinForm", new Cabin());
-        return "/cabin-edit";
+        if (!model.containsAttribute("cabinForm"))
+            model.addAttribute("cabinForm", new Cabin());
+        return "admin/cabin-edit";
     }
-    @PostMapping("/cabin-edit/{id}")
-    public String  editCabin(@ModelAttribute("cabinForm") Cabin cabin, @RequestParam(required = true, defaultValue = "" ) Long shipId,
-                                                                    @PathVariable("id") Long id) {
+    @PostMapping("/admin/cabin-edit/{id}")
+    public String  editCabin(@ModelAttribute("cabinForm") @Valid Cabin cabin,  BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
+                                                            @RequestParam(required = true, defaultValue = "" ) Long shipId,
+                                                            @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.cabinForm", bindingResult);
+            redirectAttributes.addFlashAttribute("cabinForm", cabin);
+
+            return "redirect:/admin/cabin-edit/" + id;
+        }
         cabin.setId(id);
         cabinService.saveCabin(cabin, shipId);
-        return "redirect:/cabins";
+        return "redirect:/admin/cabins";
     }
 }

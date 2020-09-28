@@ -5,37 +5,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
     <title>Registration</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body>
-<div>
+<div class="container d-flex justify-content-center form_container">
     <form:form method="POST" modelAttribute="userForm">
         <h2>Registration</h2>
-        <div>
-            <form:input type="text" path="username" placeholder="Name"
-                        autofocus="true"></form:input>
+        <div class="text-danger">
+            <form:input type="text" path="username" placeholder="Name" autofocus="true"></form:input>
+            <form:errors path="username"/>
+
+
 
         </div>
-        <div>
-            <form:input type="text" path="email" placeholder="Email"
-                        autofocus="true"></form:input>
-            <form:errors path="username"></form:errors>
-                ${usernameError}
+        <div class="text-danger">
+            <form:input type="text" path="email" placeholder="Email" autofocus="true"></form:input>
+            <form:errors path="email"></form:errors>
+                ${emailError}
         </div>
-        <div>
+        <div class="text-danger">
             <form:input type="password" path="password" placeholder="Password"></form:input>
+            <form:errors path="password"></form:errors>
+                ${passwordError}
         </div>
         <div>
             <form:input type="password" path="passwordConfirm"
                         placeholder="Confirm your password"></form:input>
-            <form:errors path="password"></form:errors>
-                ${passwordError}
+
         </div>
-        <button type="submit">Registrate</button>
+        <div class="d-flex justify-content-center mt-3 login_container">
+            <button type="submit" class="btn btn-primary btn-block">Registrate</button>
+        </div>
+        </form>
+        </div>
+
+        <div class="mt-4">
+            <div class="d-flex justify-content-center links">
+                Already have an account? <a href="/login">Sign in</a>
+            </div>
+        </div>
     </form:form>
-    <a href="/">Main</a>
 </div>
 </body>
 </html>

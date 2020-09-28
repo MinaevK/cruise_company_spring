@@ -30,9 +30,9 @@ public class ApplicationsController {
 
         return "redirect:/admin/all-applications";
     }
-    @GetMapping("/user-applications")
+    @GetMapping("/user/user-applications")
     public String userApplications(Model model) {
         model.addAttribute("userApplications", bookingService.findByUser(((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
-        return "user-applications";
+        return "user/user-applications";
     }
 }

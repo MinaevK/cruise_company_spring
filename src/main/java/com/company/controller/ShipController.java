@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -19,32 +20,46 @@ public class ShipController {
     @Autowired
     ShipService shipService;
 
-    @GetMapping("/ships")
+    @GetMapping("/admin/ships")
     public String ship(Model model) {
         model.addAttribute("ships", shipService.allShips());
-        model.addAttribute("shipForm", new Ship());
-        return "ships";
+        if (!model.containsAttribute("shipForm"))
+            model.addAttribute("shipForm", new Ship());
+        return "/admin/ships";
     }
 
 
-    @PostMapping("/ships")
-    public String  addShip(@ModelAttribute("shipForm") Ship ship) {
-    shipService.saveShip(ship);
-        return "redirect:/ships";
+    @PostMapping("/admin/ships")
+    public String  addShip(@ModelAttribute("shipForm") @Valid Ship ship, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.shipForm", bindingResult);
+            redirectAttributes.addFlashAttribute("shipForm", ship);
+
+            return "redirect:/admin/ships";
+        }
+        shipService.saveShip(ship);
+        return "/";
     }
 
-    @GetMapping("/ship-edit/{id}")
+    @GetMapping("/admin/ship-edit/{id}")
     public String shipEdit(@PathVariable("id") Long id, Model model) {
         Ship ship = shipService.shipById(id);
-        model.addAttribute("ship", ship);
-        model.addAttribute("shipForm", new Ship());
-        return "/ship-edit";
+
+        if (!model.containsAttribute("shipForm"))
+            model.addAttribute("shipForm", ship);
+        return "/admin/ship-edit";
     }
-    @PostMapping("/ship-edit/{id}")
-    public String  saveEditedShip(@ModelAttribute("shipForm") Ship ship,
+    @PostMapping("/admin/ship-edit/{id}")
+    public String  saveEditedShip(@ModelAttribute("shipForm") @Valid Ship ship, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
                              @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.shipForm", bindingResult);
+            redirectAttributes.addFlashAttribute("shipForm", ship);
+
+            return "/admin/ship-edit";
+        }
         ship.setId(id);
         shipService.saveShip(ship);
-        return "redirect:/ships";
+        return "redirect:/admin/ships";
     }
 }

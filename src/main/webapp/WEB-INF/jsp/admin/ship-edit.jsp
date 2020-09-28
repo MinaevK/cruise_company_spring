@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${cruise.name}</title>
+    <title>${shipForm.name}  editing</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -31,22 +31,30 @@
         </ul>
     </div>
 </nav>
-<h3>${cruise.name}</h3>
 <div class="container">
+<h4>${shipForm.name}</h4>
+    <div id="demo" class="container">
 
-
-    <p>Departure date: ${cruise.departureDate}</p>
-    <p>Arrival date: ${cruise.arrivalDate}</p>
-    <p>Ship: ${cruise.ship.name}</p>
-    <p>Price: ${cruise.cruisePrice}</p>
-
-    <h5>Ports:</h5>
-    <ul>
-        <c:forEach items="${cruise.getPorts()}" var="port" >
-            <li>${port}</li>
-        </c:forEach>
-    </ul>
-
+    <form:form method="post" modelAttribute="shipForm">
+        <div class="container">
+            <div class="form-group">
+                <label class="control-label col-md-2">Name:</label>
+                <div class="form-group text-danger ">
+                    <form:input path="name" value="${shipForm.name}" />
+                    <form:errors path="name"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Capacity:</label>
+                <div class="form-group text-danger ">
+                    <form:input path="capacity" value="${shipForm.capacity}"/>
+                    <form:errors path="capacity"/>
+                </div>
+            </div>
+            <td><button type="submit" class="btn btn-success ">Edit</button></td>
+        </div>
+</form:form>
+</div>
 </div>
 </body>
 </html>

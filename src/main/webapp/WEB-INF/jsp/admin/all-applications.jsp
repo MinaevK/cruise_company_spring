@@ -5,15 +5,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
     <title>All applications</title>
-    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body>
-<div>
-    <table>
-        <thead>
+<nav class="navbar header-top navbar-expand-lg" >
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Cruise booking</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <p>${pageContext.request.userPrincipal.name}  </p>
+            </li>
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/logout">Logout <i class="fas fa-sign-out-alt"></i>   </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container" >
+    <table class="table table-hover table-bordered">
+        <tr>
             <th>Cruise Name</th>
             <th>Departure Date</th>
             <th>Arrival Date</th>
@@ -21,8 +40,9 @@
             <th>Ship</th>
             <th>Room</th>
             <th>Application date</th>
+            <th>Price</th>
             <th>Confirm</th>
-        </thead>
+        </tr>
         <c:forEach items="${allApplications}" var="appl">
             <tr>
                 <td>${appl.cruise.name}</td>
@@ -32,38 +52,23 @@
                 <td>${appl.ship.name}</td>
                 <td>${appl.cabin.number}</td>
                 <td>${appl.applicationDate}</td>
+                <td>${appl.price}</td>
                 <td>
                     <c:choose>
                         <c:when test ="${appl.paid == false}">
                             <form action="${pageContext.request.contextPath}" method="post">
                                 <input type="hidden" name="userId" value="${appl.id}"/>
-                                <button type="submit">Confirm</button>
+                                <button type="submit" class="btn btn-success">Confirm</button>
                             </form>
                         </c:when>
                         <c:otherwise>
-                            <button type="submit" disabled>Confirm</button>
+                            <button type="submit" class="btn"disabled>Confirmed</button>
                         </c:otherwise>
                     </c:choose>
                 </td>
             </tr>
         </c:forEach>
     </table>
-    <a href="${pageContext.request.contextPath}/">Main</a>
 </div>
-<%--<div>
-    <table>
-        <thead>
-        <th>ID</th>
-        <th>cost</th>
-        </thead>
-        <c:forEach items="${rooms}" var="room">
-            <tr>
-                <td>${room.id}</td>
-                <td>${room.costPerDay}</td>
-            </tr>
-        </c:forEach>
-    </table>
-
-</div>--%>
 </body>
 </html>

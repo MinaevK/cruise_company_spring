@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
@@ -18,10 +19,11 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Email(message = "Email in wrong format")
     private String email;
-    @Size(min=2, message = "Не меньше 5 знаков")
+    @Size(min=2, message = "2 or more symbols")
     private String username;
-    @Size(min=2, message = "Не меньше 5 знаков")
+    @Size(min=2, message = "2 or more symbols")
     private String password;
     @Transient
     private String passwordConfirm;

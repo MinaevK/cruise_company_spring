@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${cruise.name}</title>
+    <title>Ships</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -31,22 +31,45 @@
         </ul>
     </div>
 </nav>
-<h3>${cruise.name}</h3>
 <div class="container">
-
-
-    <p>Departure date: ${cruise.departureDate}</p>
-    <p>Arrival date: ${cruise.arrivalDate}</p>
-    <p>Ship: ${cruise.ship.name}</p>
-    <p>Price: ${cruise.cruisePrice}</p>
-
-    <h5>Ports:</h5>
-    <ul>
-        <c:forEach items="${cruise.getPorts()}" var="port" >
-            <li>${port}</li>
+    <h4>Ships</h4>
+    <table class="table table-hover table-bordered">
+        <th>Name </th>
+        <th>Capacity </th>
+        <c:forEach items="${ships}" var="ship">
+            <tr>
+                <td>${ship.name}</td>
+                <td>${ship.capacity}</td>
+                <td>
+                    <a href="/admin/ship-edit/${ship.id}" class="btn btn-info" role="button">Edit <i class="far fa-edit"></i></a>
+                </td>
+            </tr>
         </c:forEach>
-    </ul>
+    </table>
+    <button type="button" class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo">Add new cabin <i class="fas fa-plus"></i></button>
+    <div id="demo" class="collapse container">
+        <form:form method="post" modelAttribute="shipForm">
+            <h4>New ship</h4>
+            <div class="container">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Name:</label>
+                    <div class="form-group text-danger ">
+                        <form:input path="name" />
+                        <form:errors path="name"/>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label class="control-label col-md-2">Capacity:</label>
+                    <div class="form-group text-danger ">
+                        <form:input path="capacity" />
+                        <form:errors path="capacity"/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </form:form>
+    </div>
 </div>
 </body>
 </html>
