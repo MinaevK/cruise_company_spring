@@ -1,7 +1,6 @@
 package com.company.service;
 
 import com.company.entity.Cabin;
-import com.company.entity.CabinClass;
 import com.company.entity.Ship;
 import com.company.repository.CabinRepository;
 import com.company.repository.ShipRepository;
@@ -18,11 +17,10 @@ public class CabinService {
     @Autowired
     private CabinRepository cabinRepository;
     public List<Cabin> allCabins(){return cabinRepository.findAll();}
-    public boolean saveCabin(Cabin cabin, Long shipId){
+    public void saveCabin(Cabin cabin, Long shipId){
         Optional<Ship> optionalShip = shipRepository.findById(shipId);
         cabin.setShip(optionalShip.get());
         cabinRepository.save(cabin);
-        return true;
     }
     public List<Cabin> cabinsOnShip(Long id){
         return cabinRepository.findByShip_Id(id);

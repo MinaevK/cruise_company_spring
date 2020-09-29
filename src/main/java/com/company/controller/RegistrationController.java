@@ -34,12 +34,12 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){//TODO: to validation
-            model.addAttribute("passwordError", "Passwords don`t match");
+        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
+            model.addAttribute("passwordError", "Passwords doesn't match");
             return "registration";
         }
         if (!userService.saveUser(userForm)){
-            model.addAttribute("emailError", "Пользователь с таким email уже существует");
+            model.addAttribute("emailError", "User with this email already exists");
             return "registration";
         }
 

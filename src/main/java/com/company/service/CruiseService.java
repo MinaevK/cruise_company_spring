@@ -19,12 +19,11 @@ public class CruiseService {
     private ShipRepository shipRepository;
 
     public List<Cruise> allCruises(){return cruiseRepository.findAll();}
-    public boolean saveCruise(Cruise cruise, Long shipId, List<Port> ports){
+    public void saveCruise(Cruise cruise, Long shipId, List<Port> ports){
         Optional<Ship> optionalShip = shipRepository.findById(shipId);
         cruise.setShip(optionalShip.get());
         cruise.setPorts(ports);
         cruiseRepository.save(cruise);
-        return true;
     }
     public Cruise findCruiseById(Long id){
         Optional<Cruise> cruise = cruiseRepository.findById(id);

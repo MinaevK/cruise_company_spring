@@ -59,11 +59,9 @@ public class UserService implements UserDetailsService {
         return true;
     }
     @Transactional
-    public boolean deleteUser(Long userId) {
+    public void deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
-            return true;
         }
-        return false;
     }
 }

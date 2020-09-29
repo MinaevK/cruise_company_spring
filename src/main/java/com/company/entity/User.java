@@ -1,5 +1,6 @@
 package com.company.entity;
 
+import com.company.validation.PasswordMatch;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,9 +22,9 @@ public class User implements UserDetails {
     private Long id;
     @Email(message = "Email in wrong format")
     private String email;
-    @Size(min=2, message = "2 or more symbols")
+    @Size(min=5, message = "5 or more symbols")
     private String username;
-    @Size(min=2, message = "2 or more symbols")
+    @Size(min=5, message = "5 or more symbols")
     private String password;
     @Transient
     private String passwordConfirm;

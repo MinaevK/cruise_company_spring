@@ -13,9 +13,8 @@ public class ShipService {
     @Autowired
     private ShipRepository shipRepository;
     public List<Ship> allShips(){return shipRepository.findAll();}
-    public boolean saveShip(Ship ship){
+    public void saveShip(Ship ship){
         shipRepository.save(ship);
-        return true;
     }
     public Ship shipById(Long Id){
         Optional<Ship> optionalShip = shipRepository.findById(Id);

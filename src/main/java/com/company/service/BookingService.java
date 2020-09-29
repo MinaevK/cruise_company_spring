@@ -6,7 +6,6 @@ import com.company.repository.CabinRepository;
 import com.company.repository.CruiseRepository;
 import com.company.repository.ShipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,31 +23,25 @@ public class BookingService {
     @Autowired
     ShipRepository shipRepository;
 
-    public boolean saveApplication(UserApplication userApplication){
+    public void saveApplication(UserApplication userApplication){
         bookingRepository.save(userApplication);
-        return true;
     }
     public List<Cabin> findBookedCabins(Long cruiseId, Long shipId){
         List<UserApplication> applications = bookingRepository.findAllByCruise_Id(cruiseId);
         List<Cabin> cabins = cabinRepository.findByShip_Id(shipId);
         ArrayList<Cabin> removeList = new ArrayList<>();
-        for (UserApplication application:applications) {    //TODO: replace with lambda
-            Cabin cabin = application.getCabin();
-            removeList.add(cabin);
-        }
+        applications.forEach(a-> removeList.add(a.getCabin()));
         cabins.removeAll(removeList);
         return cabins;
     }
     public List<UserApplication> findAllApplications(){
-        List<UserApplication> applications = bookingRepository.findAll();
-        return applications;
+        return bookingRepository.findAll();
     }
     public UserApplication findById(Long id){
         Optional<UserApplication> optionalUserApplication = bookingRepository.findById(id);
         return optionalUserApplication.get();
     }
     public List<UserApplication> findByUser(Long userId){
-        List<UserApplication> applications = bookingRepository.findAllByUser_Id(userId);
-        return applications;
+        return bookingRepository.findAllByUser_Id(userId);
     }
 }

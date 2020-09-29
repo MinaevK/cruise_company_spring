@@ -1,10 +1,11 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Log in with your account</title>
+    <title><spring:message code = "title.loginPage"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -33,22 +34,22 @@
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input name="email" type="text" placeholder="Email" autofocus="true"/>                    </div>
+                        <input name="email" type="text" placeholder="<spring:message code = "placeholder.email"/>" autofocus="true"/>                    </div>
                     <div class="input-group mb-2">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <input name="password" type="password" placeholder="Password"/>
+                        <input name="password" type="password" placeholder="<spring:message code = "placeholder.password"/>"/>
                     </div>
                     <div class="d-flex justify-content-center mt-3 login_container">
-                        <button type="submit" class="btn login_btn">Log In</button>
+                        <button type="submit" class="btn login_btn"><spring:message code = "button.login"/></button>
                     </div>
                 </form>
             </div>
 
             <div class="mt-4">
                 <div class="d-flex justify-content-center links">
-                    Don't have an account? <a href="/registration">Sign Up</a>
+                    <spring:message code = "label.dontHaveAccount"/> <a href="/registration"><spring:message code = "button.registrate"/></a>
                 </div>
             </div>
         </div>
