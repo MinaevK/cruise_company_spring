@@ -41,11 +41,13 @@ public class UserService implements UserDetailsService {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());
     }
+
     @Transactional
     public List<User> allUsers() {
         Role role = roleRepository.findByName("ROLE_USER");
         return userRepository.findUsersByRoles(role);
     }
+
     @Transactional
     public boolean saveUser(User user) {
         User userFromDB = userRepository.findByEmail(user.getEmail());
@@ -58,6 +60,7 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         return true;
     }
+
     @Transactional
     public void deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {

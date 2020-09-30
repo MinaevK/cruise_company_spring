@@ -30,7 +30,7 @@ public class ShipController {
 
 
     @PostMapping("/admin/ships")
-    public String  addShip(@ModelAttribute("shipForm") @Valid Ship ship, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    public String addShip(@ModelAttribute("shipForm") @Valid Ship ship, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.shipForm", bindingResult);
             redirectAttributes.addFlashAttribute("shipForm", ship);
@@ -49,9 +49,10 @@ public class ShipController {
             model.addAttribute("shipForm", ship);
         return "/admin/ship-edit";
     }
+
     @PostMapping("/admin/ship-edit/{id}")
-    public String  saveEditedShip(@ModelAttribute("shipForm") @Valid Ship ship, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
-                             @PathVariable("id") Long id) {
+    public String saveEditedShip(@ModelAttribute("shipForm") @Valid Ship ship, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
+                                 @PathVariable("id") Long id) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.shipForm", bindingResult);
             redirectAttributes.addFlashAttribute("shipForm", ship);

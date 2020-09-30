@@ -1,32 +1,44 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Booking</title>
+    <title><spring:message code="title.booking"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body>
-<nav class="navbar header-top navbar-expand-lg" >
+<nav class="navbar header-top navbar-expand-lg">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Cruise booking</a>
+            <a class="navbar-brand" href="/"><spring:message code="label.mainName"/></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item">
-                <p>${pageContext.request.userPrincipal.name}  </p>
+            <li class="nav-item" style="padding-right: 10px">
+                    <span style="float: right">
+                        <a href="${pageContext.request.contextPath}/user/booking?lang=en"><spring:message
+                                code="label.en"/></a>
+                        <a href="${pageContext.request.contextPath}/user/booking?lang=ru"><spring:message
+                                code="label.ru"/></a>
+                    </span>
+            </li>
+            <li class="nav-item" style="padding-right: 10px">
+                <p>${pageContext.request.userPrincipal.name} </p>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/logout">Logout <i class="fas fa-sign-out-alt"></i>   </a>
+                <a href="${pageContext.request.contextPath}/logout"><spring:message code="button.logout"/><i
+                        class="fas fa-sign-out-alt"></i> </a>
             </li>
         </ul>
     </div>
@@ -34,10 +46,10 @@
 <div class="container">
     <table class="table table-hover table-bordered">
         <thead>
-            <th>Cruise</th>
-            <th>Price</th>
-            <th>Departure Date</th>
-            <th>Arrival Date</th>
+        <th><spring:message code="label.cruiseName"/></th>
+        <th><spring:message code="label.cruisePrice"/></th>
+        <th><spring:message code="label.cruiseDepartureDate"/></th>
+        <th><spring:message code="label.cruiseArrivalDate"/></th>
         </thead>
         <c:forEach items="${cruises}" var="cruise">
             <tr>
@@ -46,7 +58,8 @@
                 <td>${cruise.departureDate}</td>
                 <td>${cruise.arrivalDate}</td>
                 <td>
-                    <a href="booking-cabin/${cruise.id}" class="btn btn-info" role="button"> Select </a>
+                    <a href="booking-cabin/${cruise.id}" class="btn btn-info" role="button"> <spring:message
+                            code="button.select"/> </a>
                 </td>
 
             </tr>

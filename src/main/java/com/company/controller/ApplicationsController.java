@@ -22,17 +22,19 @@ public class ApplicationsController {
         model.addAttribute("allApplications", bookingService.findAllApplications());
         return "admin/all-applications";
     }
+
     @PostMapping("/admin/all-applications")
-    public String  sendApplication(@RequestParam(required = true, defaultValue = "" ) Long userId) {
-            UserApplication userApplication = bookingService.findById(userId);
-            userApplication.setPaid(true);
-            bookingService.saveApplication(userApplication);
+    public String sendApplication(@RequestParam(required = true, defaultValue = "") Long userId) {
+        UserApplication userApplication = bookingService.findById(userId);
+        userApplication.setPaid(true);
+        bookingService.saveApplication(userApplication);
 
         return "redirect:/admin/all-applications";
     }
+
     @GetMapping("/user/user-applications")
     public String userApplications(Model model) {
-        model.addAttribute("userApplications", bookingService.findByUser(((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
+        model.addAttribute("userApplications", bookingService.findByUser(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
         return "user/user-applications";
     }
 }

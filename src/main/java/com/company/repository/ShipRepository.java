@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface ShipRepository extends JpaRepository<Ship, Long> {
     List<Ship> findAll();
+
     Optional<Ship> findById(Long id);
 }

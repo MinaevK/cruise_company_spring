@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -12,21 +14,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body>
-<nav class="navbar header-top navbar-expand-lg" >
+<nav class="navbar header-top navbar-expand-lg">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Cruise booking</a>
+            <a class="navbar-brand" href="/"><spring:message code="label.mainName"/></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
-                <p>${pageContext.request.userPrincipal.name}  </p>
+                <p>${pageContext.request.userPrincipal.name} </p>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/logout">Logout <i class="fas fa-sign-out-alt"></i>   </a>
+                <a href="${pageContext.request.contextPath}/logout"><spring:message code="button.logout"/> <i
+                        class="fas fa-sign-out-alt"></i> </a>
             </li>
         </ul>
     </div>
@@ -35,14 +39,14 @@
 <div class="container">
 
 
-    <p>Departure date: ${cruise.departureDate}</p>
-    <p>Arrival date: ${cruise.arrivalDate}</p>
-    <p>Ship: ${cruise.ship.name}</p>
-    <p>Price: ${cruise.cruisePrice}</p>
+    <p><spring:message code="label.cruiseDepartureDate"/>: ${cruise.departureDate}</p>
+    <p><spring:message code="label.cruiseArrivalDate"/>: ${cruise.arrivalDate}</p>
+    <p><spring:message code="label.shipName"/>: ${cruise.ship.name}</p>
+    <p><spring:message code="label.cruisePrice"/>: ${cruise.cruisePrice}</p>
 
-    <h5>Ports:</h5>
+    <h5><spring:message code="label.cruisePrice"/>:</h5>
     <ul>
-        <c:forEach items="${cruise.getPorts()}" var="port" >
+        <c:forEach items="${cruise.getPorts()}" var="port">
             <li>${port}</li>
         </c:forEach>
     </ul>

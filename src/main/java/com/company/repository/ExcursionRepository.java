@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface ExcursionRepository extends JpaRepository<Excursion, Long> {
     List<Excursion> findAll();
+
     Optional<Excursion> findById(Long id);
 }

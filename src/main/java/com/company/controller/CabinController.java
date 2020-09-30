@@ -35,9 +35,9 @@ public class CabinController {
     }
 
     @PostMapping("/admin/cabins")
-    public String  addCabin(@ModelAttribute("cabinForm") @Valid Cabin cabin, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
-                                                        @RequestParam(required = true, defaultValue = "" ) Long shipId) {
-        if (bindingResult.hasErrors()){
+    public String addCabin(@ModelAttribute("cabinForm") @Valid Cabin cabin, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
+                           @RequestParam(required = true, defaultValue = "") Long shipId) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.cabinForm", bindingResult);
             redirectAttributes.addFlashAttribute("cabinForm", cabin);
             return "redirect:/admin/cabins";
@@ -56,11 +56,12 @@ public class CabinController {
             model.addAttribute("cabinForm", new Cabin());
         return "admin/cabin-edit";
     }
+
     @PostMapping("/admin/cabin-edit/{id}")
-    public String  editCabin(@ModelAttribute("cabinForm") @Valid Cabin cabin,  BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
-                                                            @RequestParam(required = true, defaultValue = "" ) Long shipId,
-                                                            @PathVariable("id") Long id) {
-        if (bindingResult.hasErrors()){
+    public String editCabin(@ModelAttribute("cabinForm") @Valid Cabin cabin, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
+                            @RequestParam(required = true, defaultValue = "") Long shipId,
+                            @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.cabinForm", bindingResult);
             redirectAttributes.addFlashAttribute("cabinForm", cabin);
 

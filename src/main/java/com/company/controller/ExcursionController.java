@@ -24,7 +24,7 @@ public class ExcursionController {
     }
 
     @PostMapping("/excursions")
-    public String  addCabin(@ModelAttribute("excursionForm") Excursion excursion, @RequestParam(required = true, defaultValue = "" ) Port port){
+    public String addCabin(@ModelAttribute("excursionForm") Excursion excursion, @RequestParam(required = true, defaultValue = "") Port port) {
         excursionService.saveExcursion(excursion, port);
         return "redirect:/excursions";
     }

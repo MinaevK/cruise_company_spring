@@ -32,10 +32,10 @@ public class CruiseController {
     }
 
     @PostMapping("/admin/cruises")
-    public String  addCruise(@ModelAttribute("cruiseForm") @Valid Cruise cruise, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
-                                                                    @RequestParam(required = true, defaultValue = "" ) Long shipId ,
-                                                                    @RequestParam(required = true, defaultValue = "" ) List<Port> portsChecked) {
-        if (bindingResult.hasErrors()){
+    public String addCruise(@ModelAttribute("cruiseForm") @Valid Cruise cruise, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
+                            @RequestParam(required = true, defaultValue = "") Long shipId,
+                            @RequestParam(required = true, defaultValue = "") List<Port> portsChecked) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.cruiseForm", bindingResult);
             redirectAttributes.addFlashAttribute("cruiseForm", cruise);
 
@@ -44,6 +44,7 @@ public class CruiseController {
         cruiseService.saveCruise(cruise, shipId, portsChecked);
         return "redirect:/admin/cruises";
     }
+
     @GetMapping("/admin/cruise-edit/{id}")
     public String cabinEdit(@PathVariable("id") Long id, Model model) {
         Cruise cruise = cruiseService.findCruiseById(id);
@@ -54,12 +55,13 @@ public class CruiseController {
             model.addAttribute("cruiseForm", new Cruise());
         return "admin/cruise-edit";
     }
+
     @PostMapping("/admin/cruise-edit/{id}")
-    public String  editCabin(@ModelAttribute("cruiseForm") @Valid Cruise cruise, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
-                             @RequestParam(required = true, defaultValue = "" ) Long shipId,
-                             @RequestParam(required = true, defaultValue = "" ) List<Port> portsChecked,
-                             @PathVariable("id") Long id) {
-        if (bindingResult.hasErrors()){
+    public String editCabin(@ModelAttribute("cruiseForm") @Valid Cruise cruise, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
+                            @RequestParam(required = true, defaultValue = "") Long shipId,
+                            @RequestParam(required = true, defaultValue = "") List<Port> portsChecked,
+                            @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.cruiseForm", bindingResult);
             redirectAttributes.addFlashAttribute("cruiseForm", cruise);
 

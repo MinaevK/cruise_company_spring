@@ -45,8 +45,8 @@ public class BookingController {
 
     @PostMapping("/user/booking-cabin/{id}")
     public String addRoomApplication(@ModelAttribute("bookingForm") UserApplication applicationForm,
-                                                    @RequestParam("cruisePrice") float cruisePrice,
-                                                    @RequestParam("cabinPrice") float cabinPrice) throws ParseException {
+                                     @RequestParam("cruisePrice") float cruisePrice,
+                                     @RequestParam("cabinPrice") float cabinPrice) throws ParseException {
         UserApplication application = new UserApplication();
         application.setCruise(applicationForm.getCruise());
         application.setCabin(applicationForm.getCabin());
@@ -55,7 +55,7 @@ public class BookingController {
         LocalDate dateDeparture = LocalDate.parse(application.getCruise().getDepartureDate());
         long days = ChronoUnit.DAYS.between(dateDeparture, dateArrival);
         application.setPrice(cruisePrice + (cabinPrice * days));
-        application.setUser((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        application.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         application.setPaid(false);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         application.setApplicationDate(java.time.LocalDateTime.now().format(formatter));
@@ -64,7 +64,7 @@ public class BookingController {
     }
 
     @GetMapping("/user/booking-cabin/{id}")
-    public String bookingCabin (@PathVariable("id") Long id, Model model) {
+    public String bookingCabin(@PathVariable("id") Long id, Model model) {
         Cruise currentCruise = cruiseService.findCruiseById(id);
         model.addAttribute("cruise", currentCruise);
         List<Cabin> cabins = bookingService.findBookedCabins(currentCruise.getId(), currentCruise.getShip().getId());

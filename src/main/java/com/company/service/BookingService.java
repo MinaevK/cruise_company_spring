@@ -23,25 +23,29 @@ public class BookingService {
     @Autowired
     ShipRepository shipRepository;
 
-    public void saveApplication(UserApplication userApplication){
+    public void saveApplication(UserApplication userApplication) {
         bookingRepository.save(userApplication);
     }
-    public List<Cabin> findBookedCabins(Long cruiseId, Long shipId){
+
+    public List<Cabin> findBookedCabins(Long cruiseId, Long shipId) {
         List<UserApplication> applications = bookingRepository.findAllByCruise_Id(cruiseId);
         List<Cabin> cabins = cabinRepository.findByShip_Id(shipId);
         ArrayList<Cabin> removeList = new ArrayList<>();
-        applications.forEach(a-> removeList.add(a.getCabin()));
+        applications.forEach(a -> removeList.add(a.getCabin()));
         cabins.removeAll(removeList);
         return cabins;
     }
-    public List<UserApplication> findAllApplications(){
+
+    public List<UserApplication> findAllApplications() {
         return bookingRepository.findAll();
     }
-    public UserApplication findById(Long id){
+
+    public UserApplication findById(Long id) {
         Optional<UserApplication> optionalUserApplication = bookingRepository.findById(id);
         return optionalUserApplication.get();
     }
-    public List<UserApplication> findByUser(Long userId){
+
+    public List<UserApplication> findByUser(Long userId) {
         return bookingRepository.findAllByUser_Id(userId);
     }
 }

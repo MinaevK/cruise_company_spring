@@ -14,11 +14,11 @@ public class CruiseDatesValidation implements ConstraintValidator<CruiseDates, C
 
     @Override
     public boolean isValid(Cruise cruise, ConstraintValidatorContext context) {
-        if (cruise.getArrivalDate().isEmpty()|| cruise.getDepartureDate().isEmpty())
+        if (cruise.getArrivalDate().isEmpty() || cruise.getDepartureDate().isEmpty())
             return false;
         LocalDate dateArrival = LocalDate.parse(cruise.getArrivalDate());
         LocalDate dateDeparture = LocalDate.parse(cruise.getDepartureDate());
-        if(dateArrival.isAfter(dateDeparture))
+        if (dateArrival.isAfter(dateDeparture))
             return true;
         return false;
     }

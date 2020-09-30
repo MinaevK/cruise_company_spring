@@ -18,14 +18,18 @@ public class CruiseService {
     @Autowired
     private ShipRepository shipRepository;
 
-    public List<Cruise> allCruises(){return cruiseRepository.findAll();}
-    public void saveCruise(Cruise cruise, Long shipId, List<Port> ports){
+    public List<Cruise> allCruises() {
+        return cruiseRepository.findAll();
+    }
+
+    public void saveCruise(Cruise cruise, Long shipId, List<Port> ports) {
         Optional<Ship> optionalShip = shipRepository.findById(shipId);
         cruise.setShip(optionalShip.get());
         cruise.setPorts(ports);
         cruiseRepository.save(cruise);
     }
-    public Cruise findCruiseById(Long id){
+
+    public Cruise findCruiseById(Long id) {
         Optional<Cruise> cruise = cruiseRepository.findById(id);
         return cruise.get();
     }

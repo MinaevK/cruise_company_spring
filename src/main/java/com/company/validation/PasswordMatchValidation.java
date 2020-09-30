@@ -5,7 +5,7 @@ import com.company.entity.User;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class PasswordMatchValidation implements ConstraintValidator <PasswordMatch, User> {
+public class PasswordMatchValidation implements ConstraintValidator<PasswordMatch, User> {
 
     @Override
     public void initialize(PasswordMatch constraintAnnotation) {
@@ -14,7 +14,7 @@ public class PasswordMatchValidation implements ConstraintValidator <PasswordMat
 
     @Override
     public boolean isValid(User user, ConstraintValidatorContext context) {
-        if(user.getPassword().equals(user.getPasswordConfirm()))
+        if (user.getPassword().equals(user.getPasswordConfirm()))
             return true;
         return false;
     }

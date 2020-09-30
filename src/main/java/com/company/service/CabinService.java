@@ -16,16 +16,22 @@ public class CabinService {
     private ShipRepository shipRepository;
     @Autowired
     private CabinRepository cabinRepository;
-    public List<Cabin> allCabins(){return cabinRepository.findAll();}
-    public void saveCabin(Cabin cabin, Long shipId){
+
+    public List<Cabin> allCabins() {
+        return cabinRepository.findAll();
+    }
+
+    public void saveCabin(Cabin cabin, Long shipId) {
         Optional<Ship> optionalShip = shipRepository.findById(shipId);
         cabin.setShip(optionalShip.get());
         cabinRepository.save(cabin);
     }
-    public List<Cabin> cabinsOnShip(Long id){
+
+    public List<Cabin> cabinsOnShip(Long id) {
         return cabinRepository.findByShip_Id(id);
     }
-    public Cabin cabinById(Long id){
+
+    public Cabin cabinById(Long id) {
         Optional<Cabin> cabin = cabinRepository.findById(id);
         return cabin.get();
     }

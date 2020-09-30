@@ -12,6 +12,8 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = CruiseDatesValidation.class)
 public @interface CruiseDates {
     String message() default "Choose right dates. Arrival date shouldn`t be before departure";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

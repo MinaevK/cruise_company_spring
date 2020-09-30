@@ -12,11 +12,16 @@ import java.util.Optional;
 public class ShipService {
     @Autowired
     private ShipRepository shipRepository;
-    public List<Ship> allShips(){return shipRepository.findAll();}
-    public void saveShip(Ship ship){
+
+    public List<Ship> allShips() {
+        return shipRepository.findAll();
+    }
+
+    public void saveShip(Ship ship) {
         shipRepository.save(ship);
     }
-    public Ship shipById(Long Id){
+
+    public Ship shipById(Long Id) {
         Optional<Ship> optionalShip = shipRepository.findById(Id);
         return optionalShip.get();
     }

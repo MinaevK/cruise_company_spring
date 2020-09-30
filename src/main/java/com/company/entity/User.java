@@ -15,16 +15,16 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table( name="user")
+@Table(name = "user")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Email(message = "Email in wrong format")
     private String email;
-    @Size(min=5, message = "5 or more symbols")
+    @Size(min = 5, message = "5 or more symbols")
     private String username;
-    @Size(min=5, message = "5 or more symbols")
+    @Size(min = 5, message = "5 or more symbols")
     private String password;
     @Transient
     private String passwordConfirm;

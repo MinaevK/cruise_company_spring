@@ -17,7 +17,7 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    public RegistrationController(UserService userService){
+    public RegistrationController(UserService userService) {
         this.userService = userService;
     }
 
@@ -34,11 +34,11 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
+        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())) {
             model.addAttribute("passwordError", "Passwords doesn't match");
             return "registration";
         }
-        if (!userService.saveUser(userForm)){
+        if (!userService.saveUser(userForm)) {
             model.addAttribute("emailError", "User with this email already exists");
             return "registration";
         }

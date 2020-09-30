@@ -13,8 +13,11 @@ public class ExcursionService {
     @Autowired
     ExcursionRepository excursionRepository;
 
-    public List<Excursion> allExcursions(){return excursionRepository.findAll();}
-    public void saveExcursion(Excursion excursion, Port port){
+    public List<Excursion> allExcursions() {
+        return excursionRepository.findAll();
+    }
+
+    public void saveExcursion(Excursion excursion, Port port) {
         excursion.setPort(port);
         excursionRepository.save(excursion);
     }
